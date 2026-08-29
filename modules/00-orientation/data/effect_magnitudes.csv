@@ -1,0 +1,51 @@
+# effect_magnitudes.csv -- the six effects a ballistic solver models, ranked.
+#
+# SYNTHETIC: MODEL OUTPUT, NOT MEASUREMENT. Nothing here was fired.
+# Generated 2026-08-29 by generate_effect_magnitudes.py, in this directory --
+# a standalone reference implementation that imports nothing from
+# src/ballistics/ and is deliberately NOT the library this course builds.
+# Module 17 regenerates this table from the reader's own solver and diffs it.
+#
+# Load: 6.5 Creedmoor, 140 gr Berger Hybrid Target, G7 BC 0.315 lb/in^2,
+#       2700 fps muzzle velocity, 1:8 right-hand twist,
+#       1.75 in sight height, 100 yd zero (4.03 MOA of launch angle).
+# Atmosphere: ICAO standard, sea level (1.225 kg/m^3, 59 degF, 29.92 inHg).
+# Wind: 10 mph full-value crosswind from 3 o'clock (blowing right to left).
+# Earth: latitude 40 deg N, firing azimuth 45 deg (northeast).
+# Gyroscopic stability (Miller): Sg = 1.73
+#
+# Two different vertical questions, two columns:
+#   drop_in  -- how far gravity pulled the bullet below the extended line of
+#               departure. This is the EFFECT of gravity, measured the same way
+#               every other column is measured: displacement from where the
+#               bullet would have gone without it. Independent of the zero.
+#   path_in  -- where the bullet actually is relative to your line of sight,
+#               given the 100 yd zero. This is what you dial. It is zero at
+#               the zero range by definition.
+#
+# Signs follow docs/units-and-conventions.md s.4: +y up, +z to the shooter's
+# right. So drop_in and path_in are negative (below), wind_10mph_in is negative
+# (a 3 o'clock wind pushes left), spin_drift_in is positive (right-hand twist
+# drifts right), and aero_jump_in is positive (a 3 o'clock wind on a right-hand
+# twist jumps the bullet UP).
+#
+# EMPIRICAL FITS, NOT PHYSICS -- three columns are curve fits imported from
+# higher-fidelity work, because a point-mass model cannot produce them:
+#   spin_drift_in  -- Litz, Applied Ballistics: 1.25 (Sg + 1.2) T^1.83
+#   aero_jump_in   -- Litz, Applied Ballistics: 0.01 Sg - 0.0024 L + 0.032 MOA/mph
+#   (both depend on Sg from Miller's rule, itself an empirical fit)
+# drop, wind deflection, and Coriolis are integrated from the equations of
+# motion. Modules 20, 21, and 22 treat the fits properly.
+range_yd,tof_s,drop_in,path_in,wind_10mph_in,spin_drift_in,aero_jump_in,coriolis_horiz_in,coriolis_vert_in
+100,0.114,-2.473,0.000,-0.547,0.069,0.387,0.019,0.016
+200,0.235,-10.275,-3.579,-2.250,0.259,0.774,0.078,0.066
+300,0.363,-24.046,-13.127,-5.206,0.573,1.160,0.179,0.150
+400,0.499,-44.519,-29.378,-9.524,1.025,1.547,0.324,0.273
+500,0.643,-72.542,-53.178,-15.323,1.631,1.934,0.517,0.435
+600,0.796,-109.093,-85.507,-22.737,2.412,2.321,0.760,0.639
+700,0.959,-155.315,-127.505,-31.928,3.394,2.708,1.057,0.889
+800,1.134,-212.547,-180.514,-43.083,4.608,3.094,1.412,1.186
+900,1.321,-282.379,-246.123,-56.421,6.092,3.481,1.828,1.535
+1000,1.521,-366.707,-326.229,-72.197,7.893,3.868,2.311,1.939
+1100,1.738,-467.812,-423.112,-90.704,10.066,4.255,2.866,2.402
+1200,1.971,-588.446,-539.522,-112.267,12.680,4.642,3.498,2.929
