@@ -85,6 +85,14 @@ the BIPM.
 of Units*.**
 Unit conversion factors and significant-figure conventions, Module 01.
 
+**International yard and pound agreement (1959).**
+The treaty between the national standards bodies of the United States, the
+United Kingdom, Canada, Australia, New Zealand and South Africa that fixed
+1 yard = 0.9144 m and 1 pound = 0.45359237 kg *exactly*. Every imperial
+conversion factor in `ballistics/constants.py` descends from those two lines,
+which is why Module 01's tests are allowed to assert them with exact float
+equality rather than a tolerance.
+
 ## Numerical methods
 
 **Press, W. H., et al. — *Numerical Recipes*, 3rd ed., Cambridge, 2007.**

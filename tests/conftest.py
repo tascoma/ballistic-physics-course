@@ -27,6 +27,12 @@ TOL = {
 
 
 @pytest.fixture(scope="session")
+def tolerances() -> dict:
+    """The shared tolerance table, for tests that would rather ask than import."""
+    return TOL
+
+
+@pytest.fixture(scope="session")
 def primary_load() -> dict:
     """6.5 Creedmoor, 140 gr Berger Hybrid Target -- the course's running example."""
     return {
