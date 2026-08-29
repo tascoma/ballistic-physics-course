@@ -12,6 +12,7 @@ them. This does:
   * every figure referenced by the lesson exists, and vice versa
   * every file the spec says the module builds exists in src/ballistics/
   * the progress table's status matches the module's actual state
+  * no lesson puts a non-ASCII character inside a $...$ math region
 
 Exit code is non-zero if a built module disagrees with its spec. Modules that
 have not been built yet are reported, not failed -- that is the normal state of
@@ -45,6 +46,60 @@ def parse_front_matter(text: str) -> dict[str, str] | None:
             key, _, value = line.partition(":")
             fields[key.strip()] = value.strip().strip('"')
     return fields
+
+
+#: Characters that render fine as prose but are version-fragile inside math.
+#: GitHub's KaTeX maps U+00B7 to \cdotp, which older builds do not define, and
+#: the lesson then shows a red parse error instead of an equation. Write the
+#: command (\cdot, ^\circ, \dots) rather than the character.
+MATH_REPLACEMENTS = {
+    "\u00b7": r"\cdot",
+    "\u00b0": r"^\circ",
+    "\u2026": r"\dots",
+    "\u2212": "-",
+    "\u00d7": r"\times",
+    "\u2248": r"\approx",
+    "\u2264": r"\le",
+    "\u2265": r"\ge",
+}
+
+FENCE = re.compile(r"```.*?```", re.DOTALL)
+DISPLAY_MATH = re.compile(r"\$\$(.+?)\$\$", re.DOTALL)
+INLINE_MATH = re.compile(r"(?<!\$)\$(?!\$)([^$\n]+?)\$(?!\$)")
+
+
+def _blank(match: re.Match) -> str:
+    """Replace a region with spaces, preserving line numbers."""
+    return re.sub(r"[^\n]", " ", match.group())
+
+
+def math_regions(text: str) -> list[tuple[int, str]]:
+    """Every $...$ and $$...$$ region, as (offset, body). Code fences excluded."""
+    text = FENCE.sub(_blank, text)
+    regions = [(m.start(), m.group(1)) for m in DISPLAY_MATH.finditer(text)]
+    regions += [
+        (m.start(), m.group(1)) for m in INLINE_MATH.finditer(DISPLAY_MATH.sub(_blank, text))
+    ]
+    return regions
+
+
+def check_math(problems: list[str]) -> None:
+    """Flag non-ASCII characters inside math, which renderers disagree about."""
+    for markdown in sorted(REPO_ROOT.rglob("*.md")):
+        if any(part.startswith(".") or part == "node_modules" for part in markdown.parts):
+            continue
+        text = markdown.read_text(encoding="utf-8")
+        for offset, body in math_regions(text):
+            for char in body:
+                if ord(char) < 128:
+                    continue
+                line = text.count("\n", 0, offset) + 1
+                fix = MATH_REPLACEMENTS.get(char)
+                advice = f"; write {fix} instead" if fix else ""
+                problems.append(
+                    f"{markdown.relative_to(REPO_ROOT)}:{line}: "
+                    f"U+{ord(char):04X} {char!r} inside math{advice}"
+                )
 
 
 def parse_progress_table(text: str) -> dict[int, str]:
@@ -139,6 +194,8 @@ def main() -> int:
                 f"M{number:02d}: progress table says complete, "
                 f"but front matter status is {status!r}"
             )
+
+    check_math(problems)
 
     print(f"{len(specs)} module specs in CURRICULUM.md")
     print(f"{len(built)} built, {len(not_started)} not started")

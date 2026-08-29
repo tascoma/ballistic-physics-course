@@ -122,7 +122,7 @@ Module 26 decides whether to carry.
 is in this group. An inch of mercury is defined from a *conventional* mercury
 density, and that density was measured:
 
-$$1\ \text{inHg (at 32 °F)} = 3386.389\ \text{Pa}$$
+$$1\ \text{inHg (at 32}\ {}^\circ\text{F)} = 3386.389\ \text{Pa}$$
 
 Seven figures is all there is. You cannot demand more precision from it, and a
 test that asserts bit-exact round-tripping through it is asserting something
@@ -353,7 +353,7 @@ with us; artillery manuals often do not.
 Every reloading manual prints this formula for muzzle energy, usually with no
 explanation:
 
-$$E_{\text{ft·lb}} = \frac{m_{\text{gr}} \times v_{\text{fps}}^2}{450240}$$
+$$E_{\text{ft}\cdot\text{lb}} = \frac{m_{\text{gr}} \times v_{\text{fps}}^2}{450240}$$
 
 Where does 450240 come from? Derive it, and then check it — this is the
 module's promise in one example.
@@ -370,7 +370,7 @@ $$E = 3072.014\ \text{J}$$
 
 Convert to foot-pounds, dividing by the exact factor 1.3558179483314:
 
-$$E = \frac{3072.014}{1.3558179483314} = 2265.80\ \text{ft·lb}$$
+$$E = \frac{3072.014}{1.3558179483314} = 2265.80\ \text{ft}\cdot\text{lb}$$
 
 **Step 2: derive the constant.** Now do it the manual's way, keeping the units
 visible. We want $\tfrac{1}{2}mv^2$ with $m$ in grains and $v$ in fps, coming
@@ -380,7 +380,7 @@ pound:
 
 $$m_{\text{slug}} = \frac{m_{\text{gr}}}{7000 \times g_{\text{ft/s}^2}}$$
 
-$$E_{\text{ft·lb}} = \tfrac{1}{2} \times \frac{m_{\text{gr}}}{7000\, g} \times v_{\text{fps}}^2 = \frac{m_{\text{gr}}\, v_{\text{fps}}^2}{2 \times 7000 \times g}$$
+$$E_{\text{ft}\cdot\text{lb}} = \tfrac{1}{2} \times \frac{m_{\text{gr}}}{7000\, g} \times v_{\text{fps}}^2 = \frac{m_{\text{gr}}\, v_{\text{fps}}^2}{2 \times 7000 \times g}$$
 
 So the divisor is $2 \times 7000 \times g$, with $g$ in ft/s². Standard gravity
 is 9.80665 m/s², which is
@@ -498,7 +498,7 @@ the heart of Part V.
 Every other conversion here is a *scale* — a multiplication by one. Temperature
 is **affine**: it has an offset.
 
-$$T_{\text{K}} = (T_{\text{°F}} - 32) \times \tfrac{5}{9} + 273.15$$
+$$T_{\text{K}} = (T_{{}^\circ\text{F}} - 32) \times \tfrac{5}{9} + 273.15$$
 
 The consequence is that `f_to_k` converts a temperature and **cannot** convert a
 temperature *difference*. If your powder is 10 °F warmer today than yesterday,
@@ -670,7 +670,7 @@ The card worth keeping.
 | Conversion | $1\ \text{yd} \equiv 0.9144\ \text{m}$, $1\ \text{in} \equiv 25.4\ \text{mm}$, $1\ \text{gr} \equiv 64.79891\ \text{mg}$, $1\ \text{lb} \equiv 0.45359237\ \text{kg}$ | exact by definition |
 | Standard gravity | $g \equiv 9.80665\ \text{m/s}^2 = 32.174049\ \text{ft/s}^2$ | defined, not measured |
 | Pressure | $1\ \text{inHg} = 3386.389\ \text{Pa}$ | conventional; standard is 29.9213 inHg |
-| Temperature | $T_{\text{K}} = (T_{\text{°F}} - 32)\tfrac{5}{9} + 273.15$ | **affine** — not for differences |
+| Temperature | $T_{\text{K}} = (T_{{}^\circ\text{F}} - 32)\tfrac{5}{9} + 273.15$ | **affine** — not for differences |
 | True MOA | $1\ \text{MOA} = \dfrac{\pi}{10800} = 2.908882\times10^{-4}\ \text{rad}$ | 1.0472 in at 100 yd |
 | SMOA / IPHY | $1\ \text{SMOA} = \dfrac{1}{3600} = 2.777778\times10^{-4}$ | 1.0000 in at 100 yd |
 | Mil | $1\ \text{mil} = 10^{-3}\ \text{rad}$ | 3.6 in at 100 yd |
@@ -680,7 +680,7 @@ The card worth keeping.
 | Error, sums | $u(a+b) \le u(a) + u(b)$ | absolute errors add |
 | Error, products | $\dfrac{u(ab)}{ab} \le \dfrac{u(a)}{a} + \dfrac{u(b)}{b}$ | relative errors add |
 | Error, powers | $\dfrac{u(x^n)}{x^n} = |n|\dfrac{u(x)}{x}$ | squaring doubles it |
-| Muzzle energy | $E_{\text{ft·lb}} = \dfrac{m_{\text{gr}} v_{\text{fps}}^2}{2 \times 7000 \times g_{\text{ft/s}^2}}$ | divisor 450437; manuals print 450240 |
+| Muzzle energy | $E_{\text{ft}\cdot\text{lb}} = \dfrac{m_{\text{gr}} v_{\text{fps}}^2}{2 \times 7000 \times g_{\text{ft/s}^2}}$ | divisor 450437; manuals print 450240 |
 
 ## 11. References
 

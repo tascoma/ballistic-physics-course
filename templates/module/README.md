@@ -71,7 +71,7 @@ approximation was made and how large its error is.
 
 | Quantity | Equation | Units |
 |---|---|---|
-| … | $…$ | … |
+| … | $\dots$ | … |
 
 ## 11. References
 

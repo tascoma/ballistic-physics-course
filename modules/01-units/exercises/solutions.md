@@ -33,7 +33,7 @@ $$11.25 \times 0.0254 = 0.28575\ \text{m/turn}$$
 
 $$E = \tfrac{1}{2} \times 1.13398092\times10^{-2} \times 792.48^2 = \tfrac{1}{2} \times 1.13398092\times10^{-2} \times 628024.6 = 3560.84\ \text{J}$$
 
-$$E = \frac{3560.84}{1.3558179483314} = 2626.34\ \text{ft·lb}$$
+$$E = \frac{3560.84}{1.3558179483314} = 2626.34\ \text{ft}\cdot\text{lb}$$
 
 (The manual's $175 \times 2600^2/450240$ gives 2627.49 — 1.15 ft·lb high, the
 same 0.044% as in the lesson, from the same stale $g$.)
@@ -363,7 +363,7 @@ $$\frac{u(E)}{E} = |n| \frac{u(v)}{v} = 2 \times 0.556\% = \mathbf{1.111\%}$$
 
 The relative uncertainty **doubles** crossing the square.
 
-**(c)** $0.01111 \times 2265.8 = \mathbf{25.2\ \text{ft·lb}}$. So the honest
+**(c)** $0.01111 \times 2265.8 = \mathbf{25.2\ \text{ft}\cdot\text{lb}}$. So the honest
 statement is 2266 ± 25 ft·lb — which, incidentally, means the 0.044% discrepancy
 in the reloading manual's constant from §4 is *fifty times smaller* than the
 uncertainty in the number it is computing. Worth knowing before anyone gets
