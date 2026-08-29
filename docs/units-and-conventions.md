@@ -63,7 +63,7 @@ Standard suffixes:
 | `_s` | seconds | | `_ms` | milliseconds |
 | `_k` | kelvin | | `_c`, `_f` | Celsius, Fahrenheit |
 | `_pa` | pascals | | `_inhg`, `_hpa` | inches Hg, hectopascals |
-| `_rad` | radians | | `_deg`, `_moa`, `_mil` | degrees, MOA, milliradians |
+| `_rad` | radians | | `_deg`, `_moa`, `_smoa`, `_mil` | degrees, MOA, SMOA/IPHY, milliradians |
 | `_j` | joules | | `_ftlb` | foot-pounds |
 | `_kgm3` | kg/m³ | | `_mph`, `_kt` | miles/hour, knots |
 
@@ -121,9 +121,13 @@ Radians everywhere internally. At the boundary:
 
 - **MOA** is exactly 1/60 of a degree, $2.908882\times10^{-4}$ rad. At 100 yards
   it subtends 1.047 inches, not 1.000.
-- **SMOA** (also "IPHY", "shooter's MOA") is exactly 1 inch per 100 yards. It is
-  a *different unit*, 4.7% smaller than a true MOA, and the difference is 4.7
-  inches at 1000 yards -- enough to miss with.
+- **SMOA** (also "IPHY", "shooter's MOA") is exactly 1 inch per 100 yards, so
+  as a ratio it is exactly 1/3600. It is a *different unit*: an SMOA is 4.51%
+  smaller than a true MOA, equivalently a true MOA is 4.72% larger than an
+  SMOA. The ratio is exactly $\pi/3$. Per *unit* the gap looks small -- 0.472
+  inches at 1000 yards -- but corrections are dialled by the dozen. A
+  1000-yard come-up is around 31 MOA, and getting the unit wrong there is
+  about 15 inches of elevation. Enough to miss with.
 - **mil** is exactly 0.001 radian. Not the 6400-mil artillery circle.
 
 ## 6. Reference conditions

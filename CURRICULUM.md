@@ -214,7 +214,7 @@ accumulation over repeated operations.
 | `f_to_k`, `k_to_f`, `c_to_k`, `k_to_c` | temperature |
 | `ftlb_to_j`, `j_to_ftlb` | energy |
 | `mph_to_mps`, `mps_to_mph`, `kt_to_mps` | wind speed |
-| `moa_to_rad`, `rad_to_moa`, `mil_to_rad`, `rad_to_mil`, `deg_to_rad`, `rad_to_deg` | angle |
+| `moa_to_rad`, `rad_to_moa`, `mil_to_rad`, `rad_to_mil`, `deg_to_rad`, `rad_to_deg`, `smoa_to_rad`, `rad_to_smoa` | angle. SMOA is a unit, so it is converted here; M02 owns the subtension *geometry* |
 
 `src/ballistics/constants.py`
 
@@ -233,7 +233,7 @@ which are measured. This matters for the round-trip tests.
 | # | Slug | Shows | What to notice |
 |---|---|---|---|
 | 01 | `m01-fig01-unit-landscape` | Grouped bar / dot plot of the same physical quantity expressed in every unit a shooter meets | The numbers span orders of magnitude for one unchanged physical fact. |
-| 02 | `m01-fig02-moa-vs-mil-subtension` | Subtension in inches vs range for 1 MOA, 1 SMOA, 1 mil | MOA and SMOA diverge visibly past 600 yd — 4.7 in at 1000. |
+| 02 | `m01-fig02-moa-vs-mil-subtension` | Subtension in inches vs range for 1 MOA, 1 SMOA, 1 mil | One MOA and one SMOA differ by 0.472 in at 1000 yd — which sounds harmless until you notice a 1000-yard come-up is ~31 of them, so confusing the two is about 15 in of elevation. |
 | 03 | `m01-fig03-rounding-drift` | Cumulative error from rounding an intermediate value, over 1000 integration steps, at 3/4/6 significant figures | Rounding at 3 sig figs destroys a trajectory; this motivates float discipline in M05. |
 
 **Exercises.** 7: conversion drills with a stated tolerance; dimensional
@@ -242,8 +242,14 @@ derived (they can confirm $C_D$ must be dimensionless); one deliberately
 dimensionally-wrong formula to catch; a sig-figs judgement call.
 
 **Tests.** `tests/test_m01_units.py` — round-trip identity to machine precision
-for every pair; known-value checks (2700 fps = 823.0 m/s, 140 gr = 9.0720 g,
-29.92 inHg = 101325 Pa within tolerance, 1 MOA = 2.908882e-4 rad).
+for every pair; known-value checks (2700 fps = 822.96 m/s exactly, 140 gr =
+9.0718 g, 29.9213 inHg = 101325 Pa to within 0.2 Pa, 1 MOA = 2.908882e-4 rad,
+MOA / SMOA = $\pi/3$ exactly).
+
+Two of those are traps. 140 gr is 9.0718 g, not the 9.0720 g you get from a
+rounded 64.8 mg per grain; and 29.92 inHg is 101320.76 Pa, 4.24 Pa short of
+standard pressure, so a test written against it is too loose to catch a real
+conversion bug. Use 29.9213 inHg.
 
 **Author pitfalls.**
 - Get the MOA/SMOA distinction exactly right; it is the module's most useful
