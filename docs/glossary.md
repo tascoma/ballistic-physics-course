@@ -1,7 +1,7 @@
 # Glossary
 
-Seeded with the terms needed to read Module 00. Each module adds the terms it
-introduces, with the module number where the term is properly defined.
+Every term the course uses, with the module number where it is properly
+defined. Each module adds the terms it introduces.
 
 ---
 
@@ -15,8 +15,18 @@ standard reference projectile, defined as sectional density divided by form
 factor. Units are lb/in². Not a physical property of the bullet alone: it is a
 statement about the bullet *and* the reference shape it is compared against. (M13)
 
+**Ballistic solution** — The set of sight corrections that puts a bullet on a
+target under stated conditions: elevation, windage, and usually time of flight
+and remaining velocity. The output of a solver, and a prediction rather than a
+measurement. (M00)
+
 **Boattail** — A tapered rear section that reduces base drag by letting the flow
 close more gradually behind the bullet. (M11)
+
+**Come-up** — The elevation correction dialled into the sight to hit at a given
+range, measured from the zero. Distinct from *drop*: drop is measured from the
+line the bore was pointed along, come-up from the line of sight, and the two
+differ by whatever elevation the zero already built in. (M00, M08)
 
 **Coriolis effect** — Apparent deflection of the bullet caused by the Earth
 rotating beneath it during the flight. Horizontal (latitude-dependent) and
@@ -33,6 +43,19 @@ to calibrate a solver. (M28)
 **Drag coefficient ($C_D$)** — The dimensionless factor in the drag equation. A
 *function of Mach number*, not a constant, and not a function of speed directly. (M11, M12)
 
+**Elevation and windage** — The two angular corrections a firing solution
+produces: vertical and horizontal respectively. Quoted in MOA or mils. (M00)
+
+**Eötvös effect** — The vertical component of the Coriolis effect. A bullet fired
+with an eastward component strikes high and one fired westward strikes low,
+because the Earth's rotation adds to or subtracts from the projectile's effective
+speed about the Earth's axis. Independent of hemisphere, unlike the horizontal
+component. (M00, M23)
+
+**Exterior ballistics** — The flight of the projectile from muzzle exit to
+impact. Distinct from interior ballistics (inside the barrel) and terminal
+ballistics (after impact). The whole subject of this course. (M00)
+
 **Extreme spread (ES)** — The largest centre-to-centre distance between any two
 shots in a group. The most common precision measure and one of the worst: it
 uses two shots and discards the rest, and its expected value grows with the
@@ -41,6 +64,10 @@ number of shots fired. (M25)
 **Form factor ($i$)** — The ratio of a bullet's drag coefficient to that of a
 reference projectile. $i<1$ means the bullet is more streamlined than the
 reference. (M13)
+
+**Full-value wind** — A crosswind blowing exactly perpendicular to the line of
+fire, which produces the maximum deflection for a given wind speed. A wind at an
+angle is quoted as a fraction of full value. (M00, M18)
 
 **G1, G7** — Standard reference projectile shapes whose drag curves are
 tabulated. G1 is a flat-based, blunt form from the 19th century; G7 is a
@@ -79,6 +106,11 @@ the yaw of repose. Roughly 9 inches at 1000 yards for a typical match load. (M21
 as opposed to the sea-level-corrected pressure that weather reports quote.
 Solvers require station pressure; supplying the corrected value is a large and
 common error. (M09)
+
+**Time of flight (ToF)** — How long the bullet takes to reach a given range. The
+quantity that most other effects scale against: gravity, spin drift, and Coriolis
+all act over it, which is why anything that slows the bullet down makes
+everything else larger. (M00)
 
 **Transonic** — The Mach range roughly 0.8 to 1.2, where drag rises steeply and
 the bullet is most easily disturbed. A band, not a point at $M=1$. (M10)

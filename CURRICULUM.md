@@ -16,7 +16,7 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` complete
 
 | | Module | | | Module |
 |---|---|---|---|---|
-| `[ ]` | **00** What a Ballistic Solution Is | | `[ ]` | **15** Equations of Motion with Drag |
+| `[x]` | **00** What a Ballistic Solution Is | | `[ ]` | **15** Equations of Motion with Drag |
 | `[ ]` | **01** Units and Dimensional Analysis | | `[ ]` | **16** Solver Engineering |
 | `[ ]` | **02** Angles and Angular Measure | | `[ ]` | **17** Validation and Verification |
 | `[ ]` | **03** Vectors and Coordinate Systems | | `[ ]` | **18** Crosswind Deflection and Lag Time |
@@ -128,12 +128,26 @@ Earth rotation. Each gets a paragraph and a forward reference to its module.
 **Builds.** Nothing in `src/ballistics/`. This is deliberate -- the reader has
 no tools yet.
 
-**Data.** `modules/00-orientation/data/effect_magnitudes.csv`, a small table of
-drop, wind deflection, spin drift, aerodynamic jump, and Coriolis for the
-running example at 100-yard increments to 1200 yards. **This is precomputed
-reference data, and the lesson must say so.** Module 17 regenerates this file
-from the reader's own solver and diffs it -- that is the payoff, and it only
-works if M00 is honest that the numbers were handed to it.
+**Data.** `modules/00-orientation/data/effect_magnitudes.csv`, a small table for
+the running example at 100-yard increments to 1200 yards, with six effect
+columns: drop, wind deflection, spin drift, aerodynamic jump, and Coriolis split
+into its horizontal (latitude) and vertical (Eötvös, azimuth) parts. Six, not
+five, because Figure 01 ranks six effects and because M23 treats the two
+Coriolis components separately.
+
+**The file is model output, not measurement, and the lesson must say so in its
+body.** It is produced by
+`modules/00-orientation/data/generate_effect_magnitudes.py`, a standalone
+reference implementation shipped with this module. That script imports nothing
+from `src/ballistics/` and is deliberately *not* the library the reader is about
+to build -- it exists only so the reader has honest numbers on day one. The
+lesson names it, names the empirical fits inside it (Litz for spin drift and
+aerodynamic jump, Miller for gyroscopic stability), and states its assumptions:
+atmosphere, wind, latitude, azimuth, and zero.
+
+Module 17 regenerates this file from the reader's own solver and diffs it -- that
+is the payoff. It means something because the two implementations are
+independent, and because M00 was honest about where its numbers came from.
 
 **Figures.**
 
@@ -141,22 +155,27 @@ works if M00 is honest that the numbers were handed to it.
 |---|---|---|---|
 | 01 | `m00-fig01-effect-magnitudes` | Horizontal bars, each effect's magnitude in inches, faceted by range (100/500/1000 yd), log x-axis | Drop dominates by two orders of magnitude; wind is second; Coriolis is invisible until 1000 yd. Log scale is required or four of the six effects vanish. |
 | 02 | `m00-fig02-solution-pipeline` | Block diagram: inputs (load, atmosphere, wind, geometry) → model → outputs (elevation, windage, ToF, velocity) | Every input is something you must *measure*, and Part IX is about how badly you measure them. |
-| 03 | `m00-fig03-trajectory-anatomy` | Annotated single trajectory: bore line, line of departure, line of sight, near zero, apex, far zero, drop | The bullet is *above* the sight line for most of its flight. Vertical scale is exaggerated ~50× and the caption must say so. |
+| 03 | `m00-fig03-trajectory-anatomy` | Annotated single trajectory: bore line, line of departure, line of sight, near zero, apex, far zero, drop. Drawn at a **200-yard zero over 0–250 yd**, not the course's 100-yard zero, and the caption says which | The bullet is *above* the sight line for most of its flight — true at a 200-yard zero, false at 100, which is why the figure states its zero. Vertical scale is exaggerated ~50× and the caption must say so. |
 
 **Exercises.** 5, all estimation: order-of-magnitude reasoning about time of
 flight, drop, and lead. No formulas required; the point is to establish
 intuition the later modules will sharpen or correct.
 
-**Tests.** None (no library code). `tools/check_curriculum.py` verifies the
-figures exist.
+**Tests.** `tests/test_m00_orientation.py`, schema only. No physics is tested
+here -- there is no library code yet. It checks that the CSV parses, that its
+columns carry the exact names and unit suffixes M17 will look for, that the range
+grid is complete, and that the provenance header survived. A column quietly
+renamed seventeen modules from now should fail loudly rather than break M17's
+diff in silence. `tools/check_curriculum.py` verifies the figures exist.
 
 **Author pitfalls.**
 - Do not derive anything here. The temptation to explain drag properly in the
   orientation module is strong and produces a bad Module 11.
 - Figure 03's vertical exaggeration must be stated in the caption; an unlabelled
   exaggerated trajectory teaches a false mental image of a rainbow arc.
-- The precomputed data must be visibly flagged in the lesson body, not just in
-  `data/README.md`.
+- The shipped data is model output, not measurement. Flag it as such in the
+  lesson body, not just in `data/README.md`, and name both its generator and the
+  empirical fits inside it.
 
 ---
 
@@ -1167,7 +1186,7 @@ statement about acceptable physical error, not about floating point.
 
 **Deliverable, specific to this module.** Regenerate
 `modules/00-orientation/data/effect_magnitudes.csv` using the reader's own
-solver and diff it against the precomputed file M00 shipped. The lesson shows
+solver and diff it against the reference file M00 shipped. The lesson shows
 the diff. This closes the loop opened in Module 00 and is the emotional payoff
 of Part V -- the reader built the thing that produced the numbers they were
 handed on day one.
