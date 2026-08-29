@@ -59,6 +59,13 @@ descends from Mayevski's work and Ingalls' tables; G7 from the boattailed
 reference projectile. Specific table provenance is recorded in
 [`../data/README.md`](../data/README.md) when the tables are created in Module 13.
 
+Module 00 ships an abbreviated copy of the G7 curve inside
+`modules/00-orientation/data/generate_effect_magnitudes.py`, so that the
+orientation module's reference table can be produced before the reader has any
+library at all. It is there for reproducibility, not as an authoritative table:
+Module 13 is where the G-family curves are sourced properly and where the
+atmospheric standard behind them is pinned down.
+
 **Sierra Bullets — *Exterior Ballistics* reference section, Sierra Reloading
 Manual.**
 Source of published banded G1 ballistic coefficients, used in Module 13 to
