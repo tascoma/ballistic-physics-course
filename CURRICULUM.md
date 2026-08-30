@@ -288,8 +288,11 @@ reticle ranging).
 | `subtension_m(angle_rad, range_m)` | exact, `range_m * tan(angle_rad)` |
 | `angle_for_offset_rad(offset_m, range_m)` | exact, `atan2` |
 | `mil_ranging_m(target_size_m, mils)` | range from reticle subtension |
-| `mil_ranging_error(target_size_m, size_err, mils, mil_err)` | propagated range uncertainty |
-| `moa_subtension_in(range_yd)`, `smoa_subtension_in(range_yd)` | presentation helpers |
+| `mil_ranging_error_m(target_size_m, target_size_err_m, mils, mils_err)` | propagated range uncertainty, in metres |
+| `moa_subtension_in(range_yd)`, `smoa_subtension_in(range_yd)` | presentation helpers, imperial in and out |
+| `clicks_for_angle(angle_rad, click_rad)` | a correction as a click count, **unrounded** |
+| `angle_for_clicks(clicks, click_rad)` | the inverse; together these expose the quantisation residual |
+| `CLICK_RAD` | named click sizes, so no figure or exercise carries a magic number |
 
 **Figures.**
 
@@ -297,23 +300,31 @@ reticle ranging).
 |---|---|---|---|
 | 01 | `m02-fig01-small-angle-error` | Relative error of $\theta$ vs $\tan\theta$, log-log, with the course's working angle range shaded | Below ~1° the error is under 0.01%; at 5° it is 0.25%. For elevation *angles* this is fine; for *corrections* it never matters. The plot tells you where the line is. |
 | 02 | `m02-fig02-reticle-ranging` | Diagram of reticle ranging plus an error band: range uncertainty vs assumed-target-size uncertainty | A 10% target-size error is a 10% range error, which at 800 yd is 80 yd and a clean miss. This is why laser rangefinders won. |
-| 03 | `m02-fig03-angular-units` | Subtension of 1 MOA / 1 SMOA / 1 mil / 0.1 mil vs range, direct-labelled | 0.1 mil and 1/4 MOA are nearly the same click value out to 600 yd, then separate. |
+| 03 | `m02-fig03-click-resolution` | Left: the running load's come-up to 1000 yd as a click count on a 1/4 MOA turret and on a 0.1 mil turret. Right: the residual left after dialling the nearest whole click, in inches at the target | The 0.1 mil click is 37.5% *coarser* than the quarter-MOA click, and it is 37.5% coarser at every range -- the ratio is the constant $4.32/\pi = 1.3751$, so "mil turrets are finer" is backwards. The right panel is the real lesson: the worst case rounding residual is half a click, 1.31 in (1/4 MOA) or 1.80 in (0.1 mil) at 1000 yd, which is inside the group and therefore not what makes you miss. |
 
-**Exercises.** 6: click arithmetic on a real dial; a mil-ranging problem with
+**Exercises.** 7: click arithmetic on a real dial; a mil-ranging problem with
 error bars; find the range at which the small-angle approximation costs one
-inch; MOA vs SMOA on a 1000-yard correction.
+inch; MOA vs SMOA on a 1000-yard correction; a library extension making the
+ranging formula exact; reading Figure 01; and a diagnosis ranking four
+candidate causes of a 30-inch miss.
 
 **Tests.** `tests/test_m02_angles.py` — known subtensions (1 MOA at 100 yd =
-1.047 in; 1 mil at 100 m = 10 cm exactly); round-trip `angle_for_offset` ∘
-`subtension`; ranging formula against hand-computed values.
+1.0472 in; 1 mil at 100 yd = 3.6000012 in); round-trip `angle_for_offset` ∘
+`subtension`; ranging formula against hand-computed values; click round-trip.
+
+Note the trap in the second known value. "1 mil at 100 m = 10 cm" is exact in
+the *linear* form only. `subtension_m` uses `tan`, so it returns 0.10000003333
+m, and a test asserting equality with 0.1 would encode the very approximation
+this module teaches against. Assert the tangent value and assert the
+3.33e-8 m gap separately, as the small-angle error it is.
 
 **Author pitfalls.**
 - "1 mil = 3.6 inches at 100 yards" is an approximation of an exact metric fact
   (1 mil = 10 cm at 100 m = 3.6 in at 100 yd is *exactly* right only because
   100 yd = 91.44 m and 0.001 × 91.44 m = 9.144 cm = 3.6 in). Work it through;
   do not hand-wave.
-- Use `atan`, not division, in `angle_for_offset_rad` -- the module is about
-  knowing the difference.
+- Use `atan2`, not division, in `angle_for_offset_rad` -- the module is about
+  knowing the difference, and `atan2` also survives `range_m = 0`.
 
 ---
 
