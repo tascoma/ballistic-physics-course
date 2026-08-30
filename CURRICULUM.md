@@ -18,7 +18,7 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` complete
 |---|---|---|---|---|
 | `[x]` | **00** What a Ballistic Solution Is | | `[ ]` | **15** Equations of Motion with Drag |
 | `[x]` | **01** Units and Dimensional Analysis | | `[ ]` | **16** Solver Engineering |
-| `[ ]` | **02** Angles and Angular Measure | | `[ ]` | **17** Validation and Verification |
+| `[x]` | **02** Angles and Angular Measure | | `[ ]` | **17** Validation and Verification |
 | `[ ]` | **03** Vectors and Coordinate Systems | | `[ ]` | **18** Crosswind Deflection and Lag Time |
 | `[ ]` | **04** Derivatives and Integrals | | `[ ]` | **19** Real Wind Fields |
 | `[ ]` | **05** ODEs and Numerical Integration | | `[ ]` | **20** Spin and Gyroscopic Stability |

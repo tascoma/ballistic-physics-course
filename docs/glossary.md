@@ -28,6 +28,11 @@ measurement. (M00)
 **Boattail** — A tapered rear section that reduces base drag by letting the flow
 close more gradually behind the bullet. (M11)
 
+**Click** — One detent of a scope turret. Common sizes are 1/4 MOA and 0.1 mil;
+note that the 0.1 mil click is the *coarser* of the two, by the constant factor
+4.32/pi = 1.375. Rounding a correction to a whole click leaves a residual of at
+most half a click, which is about an inch at 1000 yards for either. (M02)
+
 **Come-up** — The elevation correction dialled into the sight to hit at a given
 range, measured from the zero. Distinct from *drop*: drop is measured from the
 line the bore was pointed along, come-up from the line of sight, and the two
@@ -119,6 +124,11 @@ that drag actually depends on. (M10)
 **Mil / milliradian** — Exactly 0.001 radian, subtending 10 cm at 100 m (3.6 in
 at 100 yd). Not the 6400-mil artillery circle. (M01, M02)
 
+**Mil ranging** — Estimating range from the number of mils a target of assumed
+size subtends: range = size / (mils x 0.001). Its accuracy is limited almost
+entirely by how well you know the target's size, since the range error is
+directly proportional to the size error. (M02)
+
 **Minute of angle (MOA)** — 1/60 of a degree, subtending 1.047 inches at 100
 yards. Distinct from SMOA/IPHY, which is exactly 1 inch per 100 yards. (M01, M02)
 
@@ -129,6 +139,10 @@ needed. (M08)
 **Precision** — How tightly repeated measurements cluster, independent of
 whether that cluster is anywhere near the truth. Distinct from *accuracy*. (M01, M25)
 
+**Reticle** — The aiming reference inside a scope, usually carrying marks at
+known angular spacing (mil-dot, MOA hash) so it can be used to measure
+subtension as well as to aim. (M02)
+
 **Sectional density (SD)** — Mass divided by the square of the diameter, in
 lb/in². A property of the bullet independent of its shape. (M13)
 
@@ -137,6 +151,15 @@ discipline for *reporting* answers, not for computing them: inside a
 calculation, carry every digit the machine offers and round only at the end.
 Rounding an intermediate compounds, and at three significant figures it can
 destroy a trajectory outright. (M01)
+
+**Slant range** — The distance to the target measured along the line of sight,
+as opposed to the horizontal range beneath it. On an incline of angle phi the
+two differ by a factor cos(phi). A laser rangefinder reports slant range. (M02)
+
+**Small-angle approximation** — Replacing tan(theta) by theta, with theta in
+radians. It understates the result by a relative theta^2/3: 27 parts per million
+at a 31 MOA come-up, 0.25% at 5 degrees, 10% at 30 degrees. Free for anything
+you dial; not free for the geometry of a steep shot. (M02)
 
 **SMOA (IPHY)** — "Shooter's MOA", defined as exactly one inch per hundred
 yards, i.e. the ratio 1/3600. A *different unit* from a true MOA and 4.51%
@@ -155,6 +178,11 @@ the equator to 9.832 at the poles. (M01)
 as opposed to the sea-level-corrected pressure that weather reports quote.
 Solvers require station pressure; supplying the corrected value is a large and
 common error. (M09)
+
+**Subtension** — The length a given angle covers at a given range,
+s = R tan(theta). Linear in range, so every subtension is a straight line
+through the origin and the ratio of any two angular units is constant at every
+distance. (M02)
 
 **Time of flight (ToF)** — How long the bullet takes to reach a given range. The
 quantity that most other effects scale against: gravity, spin drift, and Coriolis
