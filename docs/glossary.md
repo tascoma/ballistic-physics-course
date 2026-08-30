@@ -5,6 +5,11 @@ defined. Each module adds the terms it introduces.
 
 ---
 
+**Accuracy** — How close a measurement is to the true value. Distinct from
+*precision*: an instrument can be highly repeatable and consistently wrong, and
+no amount of staring at its output will reveal the bias. Only comparison
+against something independent will. (M01, M24, M25)
+
 **Aerodynamic jump** — A vertical shift in impact caused by a *crosswind*,
 arising from the spinning bullet's response to the initial yaw the wind imposes.
 An angular offset established at the muzzle, so its linear effect grows linearly
@@ -36,6 +41,21 @@ vertical (azimuth-dependent, the Eötvös effect) components. (M23)
 density equals the density where you actually are. A single number summarising
 pressure, temperature, and humidity. (M09)
 
+**Dimensional analysis** — Checking an equation by the *dimensions* of its
+terms — mass, length and time — rather than by its numbers. Written in square
+brackets: a velocity is $[\mathrm{L}][\mathrm{T}]^{-1}$. It can prove an
+equation wrong without any knowledge of the physics in it, and it can never
+prove one right. (M01)
+
+**Dimensional homogeneity** — The property that every term in a physically
+meaningful equation has the same dimensions. The rule that dimensional analysis
+tests. You cannot add a length to a time. (M01)
+
+**Dimensionless** — Having no dimensions, so the same number in every unit
+system. The drag coefficient, the form factor, Mach number and the gyroscopic
+stability factor are all dimensionless; a ballistic coefficient, despite being
+described as "a number", is not — it is a mass per unit area. (M01)
+
 **DOPE** — "Data On Previous Engagements": recorded sight corrections that
 produced hits at known ranges under known conditions. The empirical record used
 to calibrate a solver. (M28)
@@ -45,6 +65,12 @@ to calibrate a solver. (M28)
 
 **Elevation and windage** — The two angular corrections a firing solution
 produces: vertical and horizontal respectively. Quoted in MOA or mils. (M00)
+
+**Error, absolute and relative** — Absolute error carries the units of the
+quantity (2700 ± 15 fps); relative error is the dimensionless ratio (0.56%).
+Absolute errors add through sums; relative errors add through products, and a
+power multiplies its exponent in — so squaring a quantity doubles its relative
+error. (M01, M26)
 
 **Eötvös effect** — The vertical component of the Coriolis effect. A bullet fired
 with an eastward component strikes high and one fired westward strikes low,
@@ -73,6 +99,10 @@ angle is quoted as a fraction of full value. (M00, M18)
 tabulated. G1 is a flat-based, blunt form from the 19th century; G7 is a
 boattailed, long-ogive form that far better resembles a modern match bullet. (M12, M13)
 
+**Grain** — The unit bullet and powder mass are quoted in. Exactly 1/7000 of a
+pound, hence exactly 64.79891 mg. Not 64.8: the rounded value is wrong in the
+fifth significant figure. (M01)
+
 **Gyroscopic stability factor ($S_g$)** — The ratio of a bullet's stabilising
 angular momentum to the destabilising aerodynamic overturning moment. $S_g>1$ is
 required; $S_g\geq1.4$ is the practical target. (M20)
@@ -86,21 +116,40 @@ target. The x-axis of this course's coordinate frame. (M03)
 **Mach number ($M$)** — Speed divided by the local speed of sound. The variable
 that drag actually depends on. (M10)
 
-**Minute of angle (MOA)** — 1/60 of a degree, subtending 1.047 inches at 100
-yards. Distinct from SMOA/IPHY, which is exactly 1 inch per 100 yards. (M01, M02)
-
 **Mil / milliradian** — Exactly 0.001 radian, subtending 10 cm at 100 m (3.6 in
 at 100 yd). Not the 6400-mil artillery circle. (M01, M02)
+
+**Minute of angle (MOA)** — 1/60 of a degree, subtending 1.047 inches at 100
+yards. Distinct from SMOA/IPHY, which is exactly 1 inch per 100 yards. (M01, M02)
 
 **Point-blank range** — The maximum distance over which the trajectory stays
 within a specified vertical window around the line of sight, so no holdover is
 needed. (M08)
 
+**Precision** — How tightly repeated measurements cluster, independent of
+whether that cluster is anywhere near the truth. Distinct from *accuracy*. (M01, M25)
+
 **Sectional density (SD)** — Mass divided by the square of the diameter, in
 lb/in². A property of the bullet independent of its shape. (M13)
 
+**Significant figures** — The digits of a number that carry information. A
+discipline for *reporting* answers, not for computing them: inside a
+calculation, carry every digit the machine offers and round only at the end.
+Rounding an intermediate compounds, and at three significant figures it can
+destroy a trajectory outright. (M01)
+
+**SMOA (IPHY)** — "Shooter's MOA", defined as exactly one inch per hundred
+yards, i.e. the ratio 1/3600. A *different unit* from a true MOA and 4.51%
+smaller; equivalently a true MOA is 4.72% larger. The ratio is exactly $\pi/3$,
+which is where the familiar 1.047 inches at 100 yards comes from. Confusing the
+two costs about 15 inches on a 1000-yard come-up. (M01, M02)
+
 **Spin drift** — Lateral drift, in the direction of the rifling twist, caused by
 the yaw of repose. Roughly 9 inches at 1000 yards for a typical match load. (M21)
+
+**Standard gravity ($g$)** — Exactly 9.80665 m/s² (32.174049 ft/s²). A
+*defined* value, not a measurement: real local gravity runs from about 9.780 at
+the equator to 9.832 at the poles. (M01)
 
 **Station pressure** — The actual atmospheric pressure where you are standing,
 as opposed to the sea-level-corrected pressure that weather reports quote.

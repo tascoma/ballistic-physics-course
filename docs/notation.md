@@ -8,6 +8,25 @@ Where the literature disagrees with itself -- and in ballistics it often does --
 this table states which convention we follow and names the alternative, so that
 reading McCoy or Litz alongside the course does not cause confusion.
 
+## Dimensions
+
+Module 01 checks equations for dimensional homogeneity, which needs symbols for
+the *dimensions* themselves rather than for quantities. Those are written in
+square brackets, always:
+
+| Notation | Meaning |
+|---|---|
+| $[x]$ | the dimensions of the quantity $x$ |
+| $[\mathrm{M}]$, $[\mathrm{L}]$, $[\mathrm{T}]$ | the mass, length, and time dimensions |
+| $[\Theta]$ | the thermodynamic temperature dimension (needed from M09 on) |
+| $[1]$ | dimensionless |
+
+The brackets are not decoration. Bare $M$, $L$, and $T$ are already taken in
+this file -- Mach number, lapse rate, and temperature respectively -- so
+$[\mathrm{M}]$ and $M$ are different things and the notation has to say which
+is meant. A velocity is $[\mathrm{L}][\mathrm{T}]^{-1}$; a Mach number is
+$[1]$.
+
 ## Kinematics
 
 | Symbol | Quantity | SI unit | Notes |
@@ -118,7 +137,7 @@ that conversion, and it is the only place the convention flips.
 | Symbol | Quantity | Notes |
 |---|---|---|
 | $\text{MOA}$ | minute of angle | exactly 1/60 degree = 2.908882e-4 rad |
-| $\text{SMOA}$ | "shooter's MOA" / IPHY | exactly 1 inch per 100 yards -- *not* a true MOA |
+| $\text{SMOA}$ | "shooter's MOA" / IPHY | exactly 1 inch per 100 yards, i.e. 1/3600 as a ratio -- *not* a true MOA. $\text{MOA}/\text{SMOA} = \pi/3$ exactly (M01) |
 | $\text{mil}$ | milliradian | exactly 0.001 rad; **not** any of the military 6000/6300/6400-mil circles |
 
 "Mil" is the most abused unit in shooting. In this course it is always the true
