@@ -66,6 +66,15 @@ library at all. It is there for reproducibility, not as an authoritative table:
 Module 13 is where the G-family curves are sourced properly and where the
 atmospheric standard behind them is pinned down.
 
+**US Army — FM 3-22.10 / TC 3-22.10, *Sniper Training* (and the earlier
+FM 23-10).**
+Source for the mil-relation ranging formula and mil-dot reticle practice used in
+Module 02. The doctrinal formula is the small-angle form,
+range = size x 1000 / mils, with the size in whatever unit the range is wanted
+in. Note that these manuals use the true milliradian, unlike the artillery
+publications from the same source, which use a 6400-mil circle — Module 02 says
+why that distinction matters.
+
 **Sierra Bullets — *Exterior Ballistics* reference section, Sierra Reloading
 Manual.**
 Source of published banded G1 ballistic coefficients, used in Module 13 to
